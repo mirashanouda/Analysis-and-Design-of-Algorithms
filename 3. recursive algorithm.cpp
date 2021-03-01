@@ -146,13 +146,8 @@ void test_comparisons() {
 		int selection = selectionSort_count(sorted_arr, n);
 
 		cout << "   " << n << "       " << heap << "       " << bubble << "       "<< insertion << "       " << selection <<endl;
-		//cout << "---------------------------------------------------------------------------\n";
 
-		/*delete[] random_arr;
-		delete[] sorted_arr;
-		delete[] inverse_arr;*/
-	}	
-
+	}
 }		
 
 int main() {
