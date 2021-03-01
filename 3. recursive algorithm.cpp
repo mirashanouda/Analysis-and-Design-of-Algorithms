@@ -10,6 +10,7 @@ int heap_sort_count(int[], int);
 int bubble_sort_count(int* arr, int n);
 int insertion_sort_count(int* arr, int n);
 int selectionSort_count(int arr[], int n);
+void test_comparisons();
 
 
 //to rearrange a sub tree with a root i where i is the index of the tree
@@ -54,7 +55,7 @@ int heapSort(int arr[], int n) {
 	
 	int count = build_heap(arr, n);
 
-	for (int i = n - 1; n >= 0; i--) {
+	for (int i = n - 1; i >= 0; i--) {
 		swap(arr[0], arr[i]);
 		count = count + heapify(arr, i, 0); //----------------------------------
 	}
@@ -121,4 +122,43 @@ int selectionSort_count(int arr[], int n)
 			swap(arr[min_idx], arr[i]);
 	}
 	return count;
+}
+
+void test_comparisons() {
+
+	cout << "   " << "n" << "       " << "heap" << "       " << "bubble" << "       " << "insertion" << "       " << "selection" << endl;
+	for (int n = 10; n <= 300; n= n +10) { //the size of every array
+		
+		int* random_arr = new int[n];
+		int* sorted_arr = new int [n];
+		int* inverse_arr = new int[n];
+
+		for (int i = 0; i < n; i++) 
+		{
+			random_arr[i] = rand() % 150 + 1;
+			sorted_arr[i] = i + 1;
+			inverse_arr[i] = n - i;
+		}
+			
+		int heap = heap_sort_count(sorted_arr, n);
+		int bubble = bubble_sort_count(sorted_arr, n);
+		int insertion = insertion_sort_count(sorted_arr, n);
+		int selection = selectionSort_count(sorted_arr, n);
+
+		cout << "   " << n << "       " << heap << "       " << bubble << "       "<< insertion << "       " << selection <<endl;
+		//cout << "---------------------------------------------------------------------------\n";
+
+		/*delete[] random_arr;
+		delete[] sorted_arr;
+		delete[] inverse_arr;*/
+	}	
+
+}		
+
+int main() {
+
+	test_comparisons();
+
+	system("pause");
+	return 0;
 }
