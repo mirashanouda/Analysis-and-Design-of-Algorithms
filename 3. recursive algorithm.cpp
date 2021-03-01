@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+#include <ctime>
 using namespace std;
 
 //All functions:
@@ -11,6 +12,7 @@ int bubble_sort_count(int* arr, int n);
 int insertion_sort_count(int* arr, int n);
 int selectionSort_count(int arr[], int n);
 void test_comparisons();
+void test_time();
 
 
 //to rearrange a sub tree with a root i where i is the index of the tree
@@ -127,7 +129,7 @@ int selectionSort_count(int arr[], int n)
 void test_comparisons() {
 
 	cout << "   " << "n" << "       " << "heap" << "       " << "bubble" << "       " << "insertion" << "       " << "selection" << endl;
-	for (int n = 10; n <= 300; n= n +10) { //the size of every array
+	for (int n = 100; n <= 3000; n = n + 100) { //the size of every array
 		
 		int* random_arr = new int[n];
 		int* sorted_arr = new int [n];
@@ -150,9 +152,54 @@ void test_comparisons() {
 	}
 }		
 
-int main() {
+void test_time() {
 
+	cout << "   " << "n" << "       " << "heap" << "       " << "bubble" << "       " << "insertion" << "       " << "selection" << endl;
+	for (int n = 100; n <= 3000; n = n + 100) { //the size of every array
+
+		int* random_arr = new int[n];
+		int* sorted_arr = new int[n];
+		int* inverse_arr = new int[n];
+
+		for (int i = 0; i < n; i++)
+		{
+			random_arr[i] = rand() % 150 + 1;
+			sorted_arr[i] = i + 1;
+			inverse_arr[i] = n - i;
+		}
+
+		int startHeap = clock();
+		heap_sort_count(sorted_arr, n);
+		int endHeap = clock();
+		double heap = (double)(endHeap - startHeap) / CLOCKS_PER_SEC;
+
+		int startBubble = clock();
+		bubble_sort_count(sorted_arr, n);
+		int endBubble = clock();
+		double bubble = (double)(endBubble - startBubble) / CLOCKS_PER_SEC;
+
+		int startInsert = clock();
+		insertion_sort_count(sorted_arr, n);
+		int endInsert = clock();
+		double insertion = (double)(endInsert - startInsert) / CLOCKS_PER_SEC;
+			
+		int startSelect = clock();
+		selectionSort_count(sorted_arr, n);
+		int endSelect = clock();
+		double selection = (double)(endSelect - startSelect) / CLOCKS_PER_SEC;
+
+		cout << "   " << n << "       " << heap << "       " << bubble << "       " << insertion << "       " << selection << endl;
+
+	}
+}
+
+int main() {
+	
+	cout << "test_comparisons()" << endl;
 	test_comparisons();
+
+	cout <<endl<< "test_time()" << endl;
+	test_time();
 
 	system("pause");
 	return 0;
