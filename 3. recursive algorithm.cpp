@@ -142,13 +142,24 @@ void test_comparisons() {
 			inverse_arr[i] = n - i;
 		}
 			
-		int heap = heap_sort_count(sorted_arr, n);
-		int bubble = bubble_sort_count(sorted_arr, n);
-		int insertion = insertion_sort_count(sorted_arr, n);
-		int selection = selectionSort_count(sorted_arr, n);
+		int heapR = heap_sort_count(random_arr, n);
+		int bubbleR = bubble_sort_count(random_arr, n);
+		int insertionR = insertion_sort_count(random_arr, n);
+		int selectionR = selectionSort_count(random_arr, n);
 
-		cout << "   " << n << "       " << heap << "       " << bubble << "       "<< insertion << "       " << selection <<endl;
+		int heapS = heap_sort_count(sorted_arr, n);
+		int bubbleS = bubble_sort_count(sorted_arr, n);
+		int insertionS = insertion_sort_count(sorted_arr, n);
+		int selectionS = selectionSort_count(sorted_arr, n);
 
+		int heapV = heap_sort_count(inverse_arr, n);
+		int bubbleV = bubble_sort_count(inverse_arr, n);
+		int insertionV = insertion_sort_count(inverse_arr, n);
+		int selectionV = selectionSort_count(inverse_arr, n);
+
+		cout << "   " << n << "       " << heapR << "       " << bubbleR << "       " << insertionR << "       " << selectionR << endl << endl;
+		cout << "   " << n << "       " << heapS << "       " << bubbleS << "       " << insertionS << "       " << selectionS << endl << endl;
+		cout << "   " << n << "       " << heapV << "       " << bubbleV << "       " << insertionV << "       " << selectionV << endl << endl;
 	}
 }		
 
@@ -168,28 +179,74 @@ void test_time() {
 			inverse_arr[i] = n - i;
 		}
 
+		//random array-----------------------------------------------------------------------
 		int startHeap = clock();
-		heap_sort_count(sorted_arr, n);
+		heap_sort_count(random_arr, n);
 		int endHeap = clock();
-		double heap = (double)(endHeap - startHeap) / CLOCKS_PER_SEC;
+		double heap = (double(endHeap) - double(startHeap)) / CLOCKS_PER_SEC;
 
 		int startBubble = clock();
-		bubble_sort_count(sorted_arr, n);
+		bubble_sort_count(random_arr, n);
 		int endBubble = clock();
-		double bubble = (double)(endBubble - startBubble) / CLOCKS_PER_SEC;
+		double bubble = (double(endBubble) - double(startBubble)) / CLOCKS_PER_SEC;
 
 		int startInsert = clock();
-		insertion_sort_count(sorted_arr, n);
+		insertion_sort_count(random_arr, n);
 		int endInsert = clock();
-		double insertion = (double)(endInsert - startInsert) / CLOCKS_PER_SEC;
-			
+		double insertion = (double(endInsert) - double(startInsert)) / CLOCKS_PER_SEC;
+
 		int startSelect = clock();
-		selectionSort_count(sorted_arr, n);
+		selectionSort_count(random_arr, n);
 		int endSelect = clock();
-		double selection = (double)(endSelect - startSelect) / CLOCKS_PER_SEC;
+		double selection = (double(endSelect) - double(startSelect)) / CLOCKS_PER_SEC;
 
 		cout << "   " << n << "       " << heap << "       " << bubble << "       " << insertion << "       " << selection << endl;
 
+		//sorted array-----------------------------------------------------------------------
+		startHeap = clock();
+		heap_sort_count(sorted_arr, n);
+		endHeap = clock();
+		heap = (double(endHeap) - double(startHeap)) / CLOCKS_PER_SEC;
+
+		startBubble = clock();
+		bubble_sort_count(sorted_arr, n);
+		endBubble = clock();
+		bubble = (double(endBubble) - double(startBubble)) / CLOCKS_PER_SEC;
+
+		startInsert = clock();
+		insertion_sort_count(sorted_arr, n);
+		endInsert = clock();
+		insertion = (double(endInsert) - double(startInsert)) / CLOCKS_PER_SEC;
+			
+		startSelect = clock();
+		selectionSort_count(sorted_arr, n);
+		endSelect = clock();
+		selection = (double(endSelect) - double(startSelect)) / CLOCKS_PER_SEC;
+
+		cout << "   " << n << "       " << heap << "       " << bubble << "       " << insertion << "       " << selection << endl;
+
+		//inversly sorted array-----------------------------------------------------------------------
+		startHeap = clock();
+		heap_sort_count(inverse_arr, n);
+		endHeap = clock();
+		heap = (double(endHeap) - double(startHeap)) / CLOCKS_PER_SEC;
+
+		startBubble = clock();
+		bubble_sort_count(inverse_arr, n);
+		endBubble = clock();
+		bubble = (double(endBubble) - double(startBubble)) / CLOCKS_PER_SEC;
+
+		startInsert = clock();
+		insertion_sort_count(inverse_arr, n);
+		endInsert = clock();
+		insertion = (double(endInsert) - double(startInsert)) / CLOCKS_PER_SEC;
+
+		startSelect = clock();
+		selectionSort_count(inverse_arr, n);
+		endSelect = clock();
+		selection = (double(endSelect) - double(startSelect)) / CLOCKS_PER_SEC;
+
+		cout << "   " << n << "       " << heap << "       " << bubble << "       " << insertion << "       " << selection << endl;
 	}
 }
 
@@ -201,6 +258,7 @@ int main() {
 	cout <<endl<< "test_time()" << endl;
 	test_time();
 
+	cout << "x, y";
 	system("pause");
 	return 0;
 }
