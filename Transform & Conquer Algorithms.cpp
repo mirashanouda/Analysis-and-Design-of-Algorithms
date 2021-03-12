@@ -1,5 +1,6 @@
 #include <iostream> 
 #include <iomanip>
+#include <vector>
 #include <set>
 #include <algorithm>
 using namespace std;
@@ -47,16 +48,26 @@ void heapSort(double arr[], int n)
 
 void get_frequencies(double arr[], int n)
 {
+	cout << "Array: ";
+	for (int i = 0; i < n; i++)
+		cout << arr[i] << " ";
+	cout << endl << endl;
+
 	//   arr: 4 2 2 1 7 7 4 2 3 1  
 	sort(arr, arr + n);
 	//sorted: 1 1 2 2 2 3 4 4 7 7
 
-	set<double> freq;
-
+	vector<double> freq;
+	set<double> a;
 	for (int i = 0; i < n; i++)
-	{
-		freq.insert(arr[i]);
+		freq.push_back(0);
+
+	for (int i = 0; i < n; i++) {
+		freq.at(arr[i])++;
+		a.insert(arr[i]);
 	}
+
+
 	/*int i = 0, j;
 	while (i < n) {
 		freq.push_back(make_pair(arr[i], 1));
@@ -69,15 +80,12 @@ void get_frequencies(double arr[], int n)
 		i = j;
 	}*/
 
-	cout << "Array: ";
-	for (int i = 0; i < n; i++)
-		cout << arr[i] << " ";
-	cout << endl << endl;
 	cout << "Element" << setw(10) << "frequency" << endl;
 	cout << "-----------------" << endl;
 
-	for (auto it = freq.begin(); it != freq.end(); it++)
-		cout << *it << setw(10) << freq.count(*it) << endl;
+	for (auto it = a.begin(); it != a.end(); it++)
+		cout << *it << setw(10) << freq.at(*it) << endl;
+	//cout << *it << setw(10) << freq.count(*it) << endl;
 }
 
 void test(double arr[], int n);
