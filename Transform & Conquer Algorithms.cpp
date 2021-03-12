@@ -4,9 +4,49 @@
 #include <iomanip>
 #include <vector>
 #include <set>
-#include <algorithm>
 using namespace std;
 
+void heapify(double arr[], int n, int i);
+void build_heap(double arr[], int n);
+void HSort(double arr[], int n);
+
+void heapify(double arr[], int n, int i) {
+
+	int largest = i; //initialize the ragest as the root
+	int left = 2 * i + 1;
+	int right = 2 * i + 2;
+
+	if (arr[left] > arr[largest] && left < n)
+		largest = left;
+
+	if (arr[right] > arr[largest] && left < n)
+		largest = right;
+
+	if (largest = !i) {
+		swap(arr[i], arr[largest]);
+		//call heapify again to the new root to modify the new subtree
+		heapify(arr, n, largest);
+	}
+}
+
+void build_heap(double arr[], int n) {
+
+	//start calling from the last node that has children
+	//leaves start from index n/2 which means if we have 10 elements then the leaves starts from 6 to 10 (n/2+1) 
+	for (int i = n / 2 - 1; i >= 0; i--) {
+		heapify(arr, n, i);
+	}
+}
+
+void HSort(double arr[], int n) {
+
+	build_heap(arr, n);
+	for (int i = n - 1; i >= 0; i--) {
+		swap(arr[0], arr[i]);
+		heapify(arr, i, 0);
+	}
+}
+//------------------------------------------------
 //task 1
 void get_frequencies(double[], int); // n: size 
 //task 2
@@ -20,7 +60,7 @@ void get_frequencies(double arr[], int n)
 	cout << endl << endl;
 
 	//   arr: 4 2 2 1 7 7 4 2 3 1  
-	sort(arr, arr + n);
+	HSort(arr, n);
 	//sorted: 1 1 2 2 2 3 4 4 7 7
 
 	vector<double> freq;
@@ -60,7 +100,7 @@ double most_frequent(double arr[], int n) {
 	cout << endl << endl;
 
 	//   arr: 4 2 2 1 7 7 4 2 3 1  
-	sort(arr, arr + n);
+	HSort(arr, n);
 	//sorted: 1 1 2 2 2 3 4 4 7 7
 
 	vector<double> freq;
@@ -83,14 +123,17 @@ double most_frequent(double arr[], int n) {
 	return max;
 }
 
-//set<pair<double, int>> freq;
-	/*vector<double> freq;
+//-------------------------------------------------
+	/*
+	set<pair<double, int>> freq;
+	vector<double> freq;
 	for (int i = 0; i < n; i++)
 		freq.insert(make_pair(0, arr[i]));
 
 	for (auto it : freq)
 		cout << it.first << "  " << it.second << endl;	*/
 
+		//-------------------------------------------------
 void test(double arr[], int n);
 void test(double arr[], int n) {
 
@@ -98,12 +141,12 @@ void test(double arr[], int n) {
 		cout << arr[i] << " ";
 	cout << endl;
 
-	sort(arr, arr + n);
+	HSort(arr, n);
 	for (int i = 0; i < n; i++)
 		cout << arr[i] << " ";
 	cout << endl;
 }
-
+//-------------------------------------------------
 int main() {
 
 	double array[] = { 4, 2, 2, 1, 7, 7, 4, 2, 3, 1 };
