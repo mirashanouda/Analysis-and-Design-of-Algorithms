@@ -4,6 +4,8 @@
 #include <iomanip>
 #include <vector>
 #include <set>
+#include <fstream>
+//#include <algorithm>
 using namespace std;
 
 void heapify(double arr[], int n, int i);
@@ -54,10 +56,10 @@ double most_frequent(double arr[], int n);
 
 void get_frequencies(double arr[], int n)
 {
-	cout << "Array: ";
+	/*cout << "Array: ";
 	for (int i = 0; i < n; i++)
 		cout << arr[i] << " ";
-	cout << endl << endl;
+	cout << endl << endl;*/
 
 	//   arr: 4 2 2 1 7 7 4 2 3 1  
 	HSort(arr, n);
@@ -66,7 +68,7 @@ void get_frequencies(double arr[], int n)
 	vector<double> freq;
 	set<double> a;
 	for (int i = 0; i < n; i++)
-		freq.push_back(0);
+		freq.push_back(0); //to initialize all the frequencies with 0
 
 	for (int i = 0; i < n; i++) {
 		freq.at(arr[i])++;
@@ -94,10 +96,10 @@ void get_frequencies(double arr[], int n)
 
 double most_frequent(double arr[], int n) {
 
-	cout << "Array: ";
+	/*cout << "Array: ";
 	for (int i = 0; i < n; i++)
 		cout << arr[i] << " ";
-	cout << endl << endl;
+	cout << endl << endl;*/
 
 	//   arr: 4 2 2 1 7 7 4 2 3 1  
 	HSort(arr, n);
@@ -113,14 +115,17 @@ double most_frequent(double arr[], int n) {
 		a.insert(arr[i]);
 	}
 
-	double max = -INFINITY;
+	double max_index = -INFINITY, max_value;
 	auto it = a.begin();
 	while (it != a.end()) {
-		if (freq.at(*it) > max)
-			max = *it;
+		if (freq.at(*it) > max_index)
+		{
+			max_value = *it;
+			max_index = freq.at(*it);
+		}
 		it++;
 	}
-	return max;
+	return max_value;
 }
 
 //-------------------------------------------------
@@ -149,13 +154,24 @@ void test(double arr[], int n) {
 //-------------------------------------------------
 int main() {
 
+	//task 1
 	double array[] = { 4, 2, 2, 1, 7, 7, 4, 2, 3, 1 };
 	double arr[] = { 5.5, 6.7, 6.7, 8.5, 5.5, 4.2, 6.7, 2, 3, 1 }; //doesn't work
-	get_frequencies(array, 10);
+	//get_frequencies(array, 10);
 	cout << endl;
 	//test(array, 10);
 
-	cout << "The most frequent element is : " << most_frequent(array, 10) << endl; //------------;
+	//task 2
+	double file_arr[1000];
+	ifstream in("numbers.txt");
+
+	for (int i = 0; i < 1000; i++)
+		in >> file_arr[i];
+
+	cout << "The most frequent element is : " << most_frequent(file_arr, 1000) << endl;
+	get_frequencies(file_arr, 1000);
+
+	in.close();
 	system("pause");
 	return 0;
 }
