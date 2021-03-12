@@ -45,8 +45,39 @@ void heapSort(int arr[], int n)
 
 void get_frequencies(double arr[], int n)
 {
-  //   arr: 4 2 2 1 7 7 4 2 3 1  
-  heapSort(arr, n);
-  //sorted: 1 1 2 2 2 3 4 4 7 7 
+	//   arr: 4 2 2 1 7 7 4 2 3 1  
+	heapSort(arr, n);
+	//sorted: 1 1 2 2 2 3 4 4 7 7
+	vector<pair<double, int>> freq;
 
+	int i = 0;
+	while (i < n) {
+		freq.push_back(make_pair(arr[i], 1));
+		for (int j = i + 1; j < n; j++) {
+			if (arr[j] == arr[i])
+				freq.at(i).second++;
+			else 
+				break; 
+		}
+		i = j;
+	}
+
+	cout << "Array: ";
+	for (int i : arr)
+		cout << arr[i] << " ";
+	cout << endl;
+	cout << "Element" << setw(10) << "frequency" << endl;
+	cout << setw(20) << setfill('-') << endl;
+
+	for (int i=0; i<freq.size(); i++)
+		cout << freq.at(i).first << setw(10) << freq.at(i).second << endl;
+}
+
+int main() {
+
+	double array[] = { 4, 2, 2, 1, 7, 7, 4, 2, 3, 1 };
+	get_frequencies(array, 10);
+
+	system("pause");
+	return 0;
 }
