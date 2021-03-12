@@ -1,6 +1,6 @@
 #include <iostream> 
 #include <iomanip>
-#include <vector>
+#include <set>
 #include <algorithm>
 using namespace std;
 
@@ -50,9 +50,14 @@ void get_frequencies(double arr[], int n)
 	//   arr: 4 2 2 1 7 7 4 2 3 1  
 	sort(arr, arr + n);
 	//sorted: 1 1 2 2 2 3 4 4 7 7
-	vector<pair<double, int>> freq;
 
-	int i = 0, j;
+	set<double> freq;
+
+	for (int i = 0; i < n; i++)
+	{
+		freq.insert(arr[i]);
+	}
+	/*int i = 0, j;
 	while (i < n) {
 		freq.push_back(make_pair(arr[i], 1));
 		for (j = i + 1; j < n; j++) {
@@ -62,7 +67,7 @@ void get_frequencies(double arr[], int n)
 				break;
 		}
 		i = j;
-	}
+	}*/
 
 	cout << "Array: ";
 	for (int i = 0; i < n; i++)
@@ -71,26 +76,26 @@ void get_frequencies(double arr[], int n)
 	cout << "Element" << setw(10) << "frequency" << endl;
 	cout << "-----------------" << endl;
 
-	for (int i = 0; i < int(freq.size()); i++)
-		cout << freq.at(i).first << setw(10) << freq.at(i).second << endl;
+	for (auto it = freq.begin(); it != freq.end(); it++)
+		cout << *it << setw(10) << freq.count(*it) << endl;
 }
 
 void test(double arr[], int n);
 void test(double arr[], int n) {
-	
+
 	for (int i = 0; i < n; i++)
 		cout << arr[i] << " ";
 	cout << endl;
 
 	sort(arr, arr + n);
 	for (int i = 0; i < n; i++)
-		cout << arr[i] << " "; 
+		cout << arr[i] << " ";
 	cout << endl;
 }
 
 int main() {
 
-	double array[] = {4, 2, 2, 1, 7, 7, 4, 2, 3, 1 };
+	double array[] = { 4, 2, 2, 1, 7, 7, 4, 2, 3, 1 };
 	get_frequencies(array, 10);
 	//test(array, 10);
 
