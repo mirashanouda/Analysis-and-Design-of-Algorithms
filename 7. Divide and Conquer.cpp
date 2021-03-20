@@ -123,6 +123,16 @@ int main() {
 
 	cout << "the product = " << multiply(n1, n2) << endl;
 
+	//string n = "XXX";
+	////n.append("000");
+	//cout << "000" + n <<endl;
+
+	
+	
+	/*for (int i = 0; i < 9; i++)
+		for (int j = 0; j < 9; j++)
+			cout << i+1 << " * " << j+1 << " = " << product_table[i][j] << endl;*/
+
 
 	system("pause");
 	return 0;
